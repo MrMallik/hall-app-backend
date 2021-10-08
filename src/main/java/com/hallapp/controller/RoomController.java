@@ -1,6 +1,7 @@
 package com.hallapp.controller;
 
 import com.hallapp.model.HallModel;
+import com.hallapp.model.UserBookingModel;
 import com.hallapp.service.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +44,9 @@ public class RoomController {
         return hallService.getHalls(adminEmail);
     }
 
-    @PostMapping("/bookHall/{id}")
-    public void bookHall(@PathVariable String id){
-        if(hallService.bookHall(id)){
+    @PostMapping("/bookHall")
+    public void bookHall(@RequestBody UserBookingModel userBooking){
+        if(hallService.bookHall(userBooking.getHallID(), userBooking.getUserID())){
             System.out.println("Booking Complete!");
         } else{
             System.out.println("Booking couldn't be confirmed!");

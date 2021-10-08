@@ -65,11 +65,12 @@ public class HallService {
         }
     }
 
-    public boolean bookHall(String hallID){
+    public boolean bookHall(String hallID, String userID){
         Optional<HallModel> currHall = getHall(hallID);
-        if(currHall.isPresent()){
+        if(currHall.isPresent() &&
+                !currHall.get().getStatus().equalsIgnoreCase("booked")){
             changeStatusToBooking(hallID);
-            bookingRepository.save(new BookingModel(currHall.get().getHallID()));
+            bookingRepository.save(new BookingModel(hallID, userID));
             return true;
         }
 

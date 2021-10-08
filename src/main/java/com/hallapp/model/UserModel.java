@@ -25,13 +25,5 @@ public class UserModel {
     String mobileNumber;
     int age;
     String userRole;
-    List<BookingModel> bookings;
 
-    public void addBooking(BookingModel booking){
-        if(bookings == null){
-            bookings = new ArrayList<>();
-        }
-
-        bookings.add(booking);
-    }
 }

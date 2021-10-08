@@ -19,9 +19,10 @@ public class BookingModel {
     @GeneratedValue
     Long bookingID;
     String hallID;
-    String bookedBy;
+    String userID;
 
-    public BookingModel(String hallID){
+    public BookingModel(String hallID, String userID){
         this.hallID = hallID;
+        this.userID = userID;
     }
 }

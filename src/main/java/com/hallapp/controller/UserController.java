@@ -1,21 +1,29 @@
 package com.hallapp.controller;
 
+import com.hallapp.controller.RoomController;
 import com.hallapp.model.BookingModel;
+import com.hallapp.model.UserBookingModel;
 import com.hallapp.model.UserModel;
+import com.hallapp.service.BookingService;
 import com.hallapp.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class UserController {
-    private UserService userService;
 
-    @GetMapping("/getUserBookings/{id}")
-    public List<BookingModel> getUserBookings(@PathVariable String id){
-        UserModel currUser = userService.getUserByEmail(id);
-        return currUser.getBookings();
-    }
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private BookingService bookingService;
+
+//    @GetMapping("/getUserBookings/{id}")
+//    public List<BookingModel> getUserBookings(@PathVariable String id){
+//        UserModel currUser = userService.getUserByEmail(id);
+//        return currUser.getBookings();
+//    }
 
     @PostMapping("/editProfile/")
     public UserModel editProfile(@RequestBody UserModel user){
@@ -29,9 +37,10 @@ public class UserController {
         return userService.saveUser(currUser);
     }
 
-    @PostMapping("/bookRoom")
-    public void bookRoom(@RequestBody String userId, BookingModel booking){
-        UserModel currUser = userService.getUserByEmail(userId);
-        currUser.addBooking(booking);
+    @GetMapping("/getUserBookings/{userID}")
+    public List<BookingModel> getUserBookings(@PathVariable String userID){
+        return bookingService.getBookingByUserID(userID);
     }
+
+
 }
